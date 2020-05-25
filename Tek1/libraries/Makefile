@@ -7,7 +7,10 @@
 
 SRC_LIBMY			=	lib/my										\
 
-TESTS_LIBMY			=	tests/tests_libmy/test_my_mass_eq.c			\
+TESTS_LIBMY			=	tests/tests_libmy/test_my_is_alpha.c		\
+						tests/tests_libmy/test_my_is_alphanum.c		\
+						tests/tests_libmy/test_my_is_num.c			\
+						tests/tests_libmy/test_my_mass_eq.c			\
 						tests/tests_libmy/test_my_mass_str_eq_str.c	\
 						tests/tests_libmy/test_my_match_shell.c		\
 						tests/tests_libmy/test_my_match.c			\

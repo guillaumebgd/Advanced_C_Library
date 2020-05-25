@@ -24,9 +24,9 @@
 
 ///////////////////////////////////////////////////////////////
 
-//////////////////
-// Binary Scale //
-//////////////////
+/////////////////////////
+// Objects Comparisons //
+/////////////////////////
 
 bool __my_mass_eq(size_t nb_args, const size_t first, ...);
 
@@ -35,6 +35,18 @@ bool __my_mass_eq(size_t nb_args, const size_t first, ...);
 //nb -> nb of va_args.
 #define my_mass_eq(nb_args, first, ...) \
                     (__my_mass_eq(nb_args, (size_t)first, __VA_ARGS__))
+
+//Returns if a given char is alphabetical.
+bool my_is_alpha(const char c);
+
+//Returns if a given char is numerical.
+bool my_is_num(const char c);
+
+//Returns if a given char is alphabetical or numerical.
+static inline bool my_is_alphanum(const char c)
+{
+    return (my_is_alpha(c) | my_is_num(c));
+}
 
 ///////////////////////////////////////////////////////////////
 

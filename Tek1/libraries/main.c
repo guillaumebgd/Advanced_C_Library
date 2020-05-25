@@ -9,6 +9,5 @@
 
 int main(void)
 {
-    my_match_shell("?", "");
-    return (0);
+    return (my_mass_str_eq_str(2, "test", NULL, "oui"));
 }

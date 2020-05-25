@@ -6,6 +6,8 @@
 ##
 
 SRC					=	match.c									\
+						my_is_alpha.c							\
+						my_is_num.c								\
 						my_mass_eq.c							\
 						my_mass_str_eq_str.c					\
 						my_strlen.c								\
