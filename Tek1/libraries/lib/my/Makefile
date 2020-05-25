@@ -5,7 +5,10 @@
 ## Makefile use for libmy compilation
 ##
 
-SRC					=	match.c									\
+SRC					=	__match.c								\
+						__my_put_nbr_u.c						\
+						__my_put_nbr.c							\
+						__my_putchar.c							\
 						my_is_alpha.c							\
 						my_is_num.c								\
 						my_mass_eq.c							\

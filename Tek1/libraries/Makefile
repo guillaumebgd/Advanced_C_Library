@@ -5,44 +5,47 @@
 ## Makefile use for my_libraries compilation
 ##
 
-SRC_LIBMY			=	lib/my										\
+SRC_LIBMY			=	lib/my											\
 
-TESTS_LIBMY			=	tests/tests_libmy/test_my_is_alpha.c		\
-						tests/tests_libmy/test_my_is_alphanum.c		\
-						tests/tests_libmy/test_my_is_num.c			\
-						tests/tests_libmy/test_my_mass_eq.c			\
-						tests/tests_libmy/test_my_mass_str_eq_str.c	\
-						tests/tests_libmy/test_my_match_shell.c		\
-						tests/tests_libmy/test_my_match.c			\
-						tests/tests_libmy/test_my_str_eq_str.c		\
-						tests/tests_libmy/test_my_strlen.c			\
+TESTS_LIBMY			=	tests/tests_libmy/test_my_is_alpha.c			\
+						tests/tests_libmy/test_my_is_alphanum.c			\
+						tests/tests_libmy/test_my_is_num.c				\
+						tests/tests_libmy/test_my_mass_eq.c				\
+						tests/tests_libmy/test_my_mass_str_eq_str.c		\
+						tests/tests_libmy/test_my_match_shell.c			\
+						tests/tests_libmy/test_my_match.c				\
+						tests/tests_libmy/test_my_put_nbr.c				\
+						tests/tests_libmy/test_my_put_unsigned_nbr.c	\
+						tests/tests_libmy/test_my_putchar.c				\
+						tests/tests_libmy/test_my_str_eq_str.c			\
+						tests/tests_libmy/test_my_strlen.c				\
 
-NAME_LIBMY			=	-lmy										\
+NAME_LIBMY			=	-lmy											\
 
-CRITERION_FLAGS		=	-lcriterion --coverage						\
+CRITERION_FLAGS		=	-lcriterion --coverage							\
 
-override LDFLAGS	+=	-L./lib										\
+override LDFLAGS	+=	-L./lib											\
 
-override LDLIBS		+=	$(CRITERION_FLAGS)							\
-						$(NAME_LIBMY)								\
+override LDLIBS		+=	$(CRITERION_FLAGS)								\
+						$(NAME_LIBMY)									\
 
-override CPPFLAGS	+=	-I ./include/my								\
+override CPPFLAGS	+=	-I ./include/my									\
 
-RM					=	rm -rf										\
+RM					=	rm -rf											\
 
-MV					=	mv											\
+MV					=	mv												\
 
-MKDIR				=	mkdir										\
+MKDIR				=	mkdir											\
 
-MAKE				=	make										\
+MAKE				=	make											\
 
-CC					=	gcc											\
+CC					=	gcc												\
 
-TESTS_DIR			=	tests/										\
+TESTS_DIR			=	tests/											\
 
-COVERAGE_DIR		=	coverage/									\
+COVERAGE_DIR		=	coverage/										\
 
-UNIT_TESTS_BINARY	=	unit_tests									\
+UNIT_TESTS_BINARY	=	unit_tests										\
 
 all:
 	$(MAKE) -C $(SRC_LIBMY)
