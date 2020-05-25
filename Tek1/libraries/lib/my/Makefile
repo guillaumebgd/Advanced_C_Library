@@ -5,7 +5,8 @@
 ## Makefile use for libmy compilation
 ##
 
-SRC					=	my_match_shell.c						\
+SRC					=	match.c									\
+						my_mass_eq.c							\
 						my_strlen.c								\
 
 override CFLAGS		=	-Wall -Wextra							\
@@ -28,13 +29,17 @@ $(NAME):	$(OBJ)
 	$(AR) rc $(NAME) $(OBJ)
 	$(CP) -u $(NAME) ../
 
+debug:
+	$(CC) -g -o ../../$@ ../../main.c $(SRC) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
+
 clean:
 	$(RM) $(OBJ)
 
 fclean:	clean
+	$(RM) ../../debug
 	$(RM) $(NAME)
 	$(RM) ../$(NAME)
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re

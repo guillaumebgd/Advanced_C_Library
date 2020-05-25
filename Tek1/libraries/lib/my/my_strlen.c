@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** GuillaumeBgd - my_libraries
 ** File description:
-** my_strlen.c
+** Gets the length of a NULL-terminated string.
 */
 
 #include <unistd.h>

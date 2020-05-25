@@ -7,7 +7,9 @@
 
 SRC_LIBMY			=	lib/my										\
 
-TESTS_LIBMY			=	tests/tests_libmy/test_my_match_shell.c		\
+TESTS_LIBMY			=	tests/tests_libmy/test_my_mass_eq.c			\
+						tests/tests_libmy/test_my_match_shell.c		\
+						tests/tests_libmy/test_my_str_eq_str.c		\
 						tests/tests_libmy/test_my_strlen.c			\
 
 NAME_LIBMY			=	-lmy										\
@@ -40,6 +42,9 @@ UNIT_TESTS_BINARY	=	unit_tests									\
 all:
 	$(MAKE) -C $(SRC_LIBMY)
 
+debug:
+	$(MAKE) debug -C $(SRC_LIBMY)
+
 tests_run:
 	@find -name "*.gcda" -delete
 	@find -name "*.gcno" -delete
@@ -51,18 +56,17 @@ tests_run:
 	$(MV) *.gcno $(COVERAGE_DIR)
 	$(RM) $(UNIT_TESTS_BINARY)
 
-coverage:
-	gcovr --exclude $(TESTS_DIR)
-	gcovr --exclude $(TESTS_DIR) --branches
-
 clean:
+	@find -name "*.gcda" -delete
+	@find -name "*.gcno" -delete
+	$(RM) $(UNIT_TESTS_BINARY)
 	$(MAKE) clean -C $(SRC_LIBMY)
 
-fclean:
+fclean: clean
 	$(MAKE) fclean -C $(SRC_LIBMY)
 	$(RM) $(COVERAGE_DIR)
 
 re:	fclean all
 
 .NOTPARALLEL:
-.PHONY: all tests_run coverage clean fclean re
+.PHONY: all tests_run clean fclean re
