@@ -8,7 +8,9 @@
 SRC_LIBMY			=	lib/my										\
 
 TESTS_LIBMY			=	tests/tests_libmy/test_my_mass_eq.c			\
+						tests/tests_libmy/test_my_mass_str_eq_str.c	\
 						tests/tests_libmy/test_my_match_shell.c		\
+						tests/tests_libmy/test_my_match.c			\
 						tests/tests_libmy/test_my_str_eq_str.c		\
 						tests/tests_libmy/test_my_strlen.c			\
 
@@ -69,4 +71,4 @@ fclean: clean
 re:	fclean all
 
 .NOTPARALLEL:
-.PHONY: all tests_run clean fclean re
+.PHONY: all debug tests_run clean fclean re

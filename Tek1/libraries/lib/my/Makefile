@@ -7,6 +7,7 @@
 
 SRC					=	match.c									\
 						my_mass_eq.c							\
+						my_mass_str_eq_str.c					\
 						my_strlen.c								\
 
 override CFLAGS		=	-Wall -Wextra							\

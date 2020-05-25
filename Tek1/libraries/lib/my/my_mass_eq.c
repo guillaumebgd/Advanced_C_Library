@@ -11,8 +11,8 @@
 
 bool __my_mass_eq(size_t nb_args, const size_t first, ...)
 {
-    bool match = false;
     va_list ap;
+    bool match = false;
 
     va_start(ap, first);
     for (; nb_args > 0; nb_args -= 1) {
