@@ -8,3 +8,6 @@ coverage
 # Libraries / Object files
 *.a
 *.o
+
+# IDE local files
+.vscode
