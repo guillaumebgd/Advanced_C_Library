@@ -1,0 +1,10 @@
+#Unit Tests Dump Storage
+coverage
+
+#Criterion Dumps
+*.gcda
+*.gcno
+
+# Libraries / Object files
+*.a
+*.o
