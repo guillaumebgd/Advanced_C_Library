@@ -243,7 +243,7 @@ static inline bool my_put_unsigned_nbr(const size_t nb)
 }
 
 //Prints a given binary unsigned onto the STDOUT.
-static inline bool my_put_unsigned_nbr_binary(const ssize_t nb)
+static inline bool my_put_unsigned_nbr_binary(const size_t nb)
 {
     return (__my_put_nbr_u(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
 }
