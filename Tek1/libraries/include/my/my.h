@@ -36,11 +36,6 @@ bool __my_mass_eq(size_t nb_args, const size_t first, ...);
 #define my_mass_eq(nb_args, first, ...) \
                     (__my_mass_eq(nb_args, (size_t)first, __VA_ARGS__))
 
-//Returns if mask matches with any args from va_args.
-//
-//nb -> nb of va_args.
-bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
-
 ///////////////////////////////////////////////////////////////
 
 /////////////////////////////
@@ -90,6 +85,11 @@ static inline bool my_str_eq_str(const char *first, const char *second)
 {
     return (__match(first, second, NO_WC));
 }
+
+//Returns if mask matches with any args from va_args.
+//
+//nb -> nb of va_args.
+bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
 
 ///////////////////////
 
