@@ -305,7 +305,7 @@ static inline bool my_dput_unsigned_nbr_upper_hex(const size_t nb, const int fd)
 //Prints a given unsigned onto the given file descriptor according to its given base.
 static inline bool my_dput_unsigned_nbr_base(const size_t nb, const char base[], const int fd)
 {
-    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr_u(nb, base, NO_COUNT_PRINTED_CHAR, fd));
 }
 
 //////////////////////////
