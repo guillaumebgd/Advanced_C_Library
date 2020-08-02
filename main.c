@@ -9,5 +9,5 @@
 
 int main(void)
 {
-    return (my_mass_str_eq_str(2, "test", NULL, "oui"));
+    return (my_put_double(19.12));
 }

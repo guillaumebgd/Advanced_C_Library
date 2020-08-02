@@ -310,6 +310,14 @@ static inline bool my_dput_unsigned_nbr_base(const size_t nb, const char base[],
 
 //////////////////////////
 
+ssize_t __my_put_double(const double nb, const size_t _m, const int fd);
+
+//Prints a double onto the STDOUT.
+static inline bool my_put_double(const double nb)
+{
+    return (__my_put_double(nb, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+}
+
 ///////////////////////////////////////////////////////////////
 
 #endif /* MY_H_ */

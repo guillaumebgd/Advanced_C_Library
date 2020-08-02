@@ -14,6 +14,7 @@ TESTS_LIBMY			=	tests/tests_libmy/test_my_is_alpha.c			\
 						tests/tests_libmy/test_my_mass_str_eq_str.c		\
 						tests/tests_libmy/test_my_match_shell.c			\
 						tests/tests_libmy/test_my_match.c				\
+						tests/tests_libmy/test_my_put_double.c			\
 						tests/tests_libmy/test_my_put_nbr.c				\
 						tests/tests_libmy/test_my_put_unsigned_nbr.c	\
 						tests/tests_libmy/test_my_putchar.c				\
