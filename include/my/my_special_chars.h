@@ -1,6 +1,6 @@
 /*
-** EPITECH PROJECT, 2019
-** GuillaumeBgd - my_libraries
+** Personnal C Library
+** GuillaumeBgd - Advanced_C_Library
 ** File description:
 ** Special characters used in my library.
 */

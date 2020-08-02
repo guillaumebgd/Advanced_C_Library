@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019
+** Personnal C Library
 ** libraries
 ** File description:
 ** my_mass_str_eq_str.c

@@ -1,8 +1,8 @@
 ##
 ## EPITECH PROJECT, 2020
-## GuillaumeBgd - my_libraries
+## GuillaumeBgd - Advanced_C_Library
 ## File description:
-## Makefile use for my_libraries compilation
+## Makefile use for Advanced_C_Library compilation
 ##
 
 SRC_LIBMY			=	lib/my											\

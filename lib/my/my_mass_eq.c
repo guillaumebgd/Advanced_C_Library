@@ -1,6 +1,6 @@
 /*
-** EPITECH PROJECT, 2019
-** GuillaumeBgd - my_libraries
+** Personnal C Library
+** GuillaumeBgd - Advanced_C_Library
 ** File description:
 ** Finds if first matches with any va_arg.
 */
