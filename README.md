@@ -14,6 +14,9 @@ whether in optimization or in generalization.
 
 To come in the near future:
 
-<code>int my_printf(const char *input, ...);</code>
-
+```C
+int my_printf(const char *input, ...);
+```
+```C
 char *get_next_line(const int fd);
+```
