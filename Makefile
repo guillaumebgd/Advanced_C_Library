@@ -7,18 +7,24 @@
 
 SRC_LIBMY			=	lib/my											\
 
-TESTS_LIBMY			=	tests/tests_libmy/test_my_is_alpha.c			\
+TESTS_LIBMY			=	tests/tests_libmy/test_get_next_line.c			\
+						tests/tests_libmy/test_my_is_alpha.c			\
 						tests/tests_libmy/test_my_is_alphanum.c			\
 						tests/tests_libmy/test_my_is_num.c				\
 						tests/tests_libmy/test_my_mass_eq.c				\
 						tests/tests_libmy/test_my_mass_str_eq_str.c		\
 						tests/tests_libmy/test_my_match_shell.c			\
 						tests/tests_libmy/test_my_match.c				\
+						tests/tests_libmy/test_my_memset.c				\
 						tests/tests_libmy/test_my_put_double.c			\
 						tests/tests_libmy/test_my_put_nbr.c				\
 						tests/tests_libmy/test_my_put_unsigned_nbr.c	\
 						tests/tests_libmy/test_my_putchar.c				\
+						tests/tests_libmy/test_my_str_contains.c		\
+						tests/tests_libmy/test_my_str_contains_index.c	\
+						tests/tests_libmy/test_my_str_contains_list.c	\
 						tests/tests_libmy/test_my_str_eq_str.c			\
+						tests/tests_libmy/test_my_strcat.c				\
 						tests/tests_libmy/test_my_strlen.c				\
 
 NAME_LIBMY			=	-lmy											\

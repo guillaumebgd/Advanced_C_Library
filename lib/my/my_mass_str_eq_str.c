@@ -1,6 +1,6 @@
 /*
 ** Personnal C Library
-** libraries
+** GuillaumeBgd - Advanced_C_Library
 ** File description:
 ** my_mass_str_eq_str.c
 */

@@ -7,6 +7,7 @@
 
 #include "my.h"
 
+/*
 static ssize_t __my_put_double_c(const size_t nb, const size_t _m, const int fd)
 {
     return (0);
@@ -35,5 +36,6 @@ ssize_t __my_put_double(const double nb, const size_t _m, const int fd)
         return (__my_put_double_c(nb, _m, fd));
     return (__my_put_double_no_c(nb, _m, fd));
 }
+*/
 
 // 19.12

@@ -10,11 +10,17 @@ SRC					=	__match.c								\
 						__my_put_nbr_u.c						\
 						__my_put_nbr.c							\
 						__my_putchar.c							\
+						__my_str_contains.c						\
+						__my_strcpy.c							\
+						__my_strdup.c							\
+						__my_strlen.c							\
+						get_next_line.c							\
 						my_is_alpha.c							\
 						my_is_num.c								\
 						my_mass_eq.c							\
 						my_mass_str_eq_str.c					\
-						my_strlen.c								\
+						my_memset.c								\
+						my_strcat.c								\
 
 override CFLAGS		=	-Wall -Wextra							\
 

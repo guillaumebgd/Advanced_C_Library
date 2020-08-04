@@ -21,6 +21,10 @@
 ////////////////////
 #include <stdio.h>
 ////////////////////
+#include <fcntl.h>
+////////////////////
+#include <stdlib.h>
+////////////////////
 
 #define NONE (0)
 
@@ -55,6 +59,50 @@ static inline bool my_is_alphanum(const char c)
 {
     return (my_is_alpha(c) | my_is_num(c));
 }
+
+///////////////////////
+
+#define DONT_GET_CHAR_INDEX (0)
+#define GET_CHAR_INDEX (1)
+
+ssize_t __my_str_contains(const char *str, const char list[], const size_t _m);
+
+//Returns whether or not a given character is in a given string.
+static inline bool my_str_contains(const char *str, const char c)
+{
+    char list[2];
+
+    list[0] = c;
+    list[1] = '\0';
+    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
+}
+
+//Returns an index to a given character in a given string.
+//
+//If not found, returns -1.
+static inline size_t my_str_contains_index(const char *str, const char c)
+{
+    char list[2];
+
+    list[0] = c;
+    list[1] = '\0';
+    return (__my_str_contains(str, list, GET_CHAR_INDEX));
+}
+
+//Returns whether atleast one character in a given list is in a given string.
+static inline bool my_str_contains_list(const char *str, const char list[])
+{
+    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
+}
+
+///////////////////////////////////////////////////////////////
+
+/////////////
+// Fillers //
+/////////////
+
+//Puts 'nb' 'c's in 'buffer' from its beginning.
+void *my_memset(void *buffer, const int c, const size_t nb);
 
 ///////////////////////////////////////////////////////////////
 
@@ -113,17 +161,37 @@ bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
 
 ///////////////////////
 
+#define UNTIL_INDEX (1)
+#define UNTIL_CHAR (1 << 1)
+
 ///////////////////////////////////////////////////////////////
 
 ///////////////////////////
 // Objects sizes related //
 ///////////////////////////
 
+ssize_t __my_strlen(const char *str, const ssize_t c, const size_t _m);
+
 //Gets the size of a given NULL-terminated string.
 //
 //-> Returns -1 if the given string is NULL.
 //-> Returns 0 if the given string only contains a '\0'.
-ssize_t my_strlen(const char *str);
+static inline ssize_t my_strlen(const char *str)
+{
+    return (__my_strlen(str, 0, NONE));
+}
+
+static inline ssize_t my_strnlen(const char *str, const ssize_t limit)
+{
+    if (limit < 0)
+        return (0);
+    return (__my_strlen(str, limit, UNTIL_INDEX));
+}
+
+static inline ssize_t my_strlen_char(const char *str, const char c)
+{
+    return (__my_strlen(str, (ssize_t)c, UNTIL_CHAR));
+}
 
 ///////////////////////////////////////////////////////////////
 
@@ -151,8 +219,59 @@ static inline bool my_dputchar(const char c, const int fd)
 //////////////////////////
 
 //////////////////////////
-// Put Signed numbers //
+// String manipulations //
 //////////////////////////
+
+void __my_strcpy(const char *template, char *dest, const ssize_t c, const size_t _m);
+
+static inline void my_strcpy(const char *template, char *dest)
+{
+    __my_strcpy(template, dest, 0, NONE);
+}
+
+static inline void my_strncpy(const char *template, char *dest, const ssize_t limit)
+{
+    if (limit < 0)
+        return;
+    __my_strcpy(template, dest, limit, UNTIL_INDEX);
+}
+
+static inline void my_strcpy_char(const char *template, char *dest, const char c)
+{
+    __my_strcpy(template, dest, (ssize_t)c, UNTIL_CHAR);
+}
+
+char *__my_strdup(const char *template, const ssize_t c, const size_t _m);
+
+static inline char *my_strdup(const char *template)
+{
+    return (__my_strdup(template, 0, NONE));
+}
+
+static inline char *my_strndup(const char *template, const ssize_t limit)
+{
+    if (limit < 0)
+        return (NULL);
+    return (__my_strdup(template, limit, UNTIL_INDEX));
+}
+
+static inline char *my_strdup_char(const char *template, const char c)
+{
+    return (__my_strdup(template, (ssize_t)c, UNTIL_CHAR));
+}
+
+
+#define FREE_FIRST (1)
+#define FREE_SECOND (2)
+#define FREE_BOTH (FREE_FIRST | FREE_SECOND)
+
+char *my_strcat(char *first, char *second, const size_t free_opt);
+
+//////////////////////////
+
+////////////////////////
+// Put Signed numbers //
+////////////////////////
 
 ssize_t __my_put_nbr(const ssize_t nb, const char base[], const size_t _m, const int fd);
 
@@ -310,13 +429,22 @@ static inline bool my_dput_unsigned_nbr_base(const size_t nb, const char base[],
 
 //////////////////////////
 
-ssize_t __my_put_double(const double nb, const size_t _m, const int fd);
+//ssize_t __my_put_double(const double nb, const size_t _m, const int fd);
 
 //Prints a double onto the STDOUT.
-static inline bool my_put_double(const double nb)
+/*static inline bool my_put_double(const double nb)
 {
     return (__my_put_double(nb, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
-}
+}*/
+
+///////////////////////////////////////////////////////////////
+
+//////////////////
+// File parsing //
+//////////////////
+
+//Gets the next line of a file and returns it.
+char *get_next_line(const int fd);
 
 ///////////////////////////////////////////////////////////////
 

@@ -9,7 +9,7 @@
 #include <criterion/redirect.h>
 #include "my.h"
 
-Test(my_put_double, simple_decimal_print)
+/*Test(my_put_double, simple_decimal_print)
 {
     const double nb = 19.12;
 
@@ -17,3 +17,4 @@ Test(my_put_double, simple_decimal_print)
     my_put_double(nb);
     cr_assert_stdout_eq("19.12");
 }
+*/
