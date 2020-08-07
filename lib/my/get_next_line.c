@@ -16,10 +16,10 @@ static void read_new_line(char **new_line, const int fd)
     while (!done && !my_str_contains(*new_line, '\n')) {
         my_memset(buffer, '\0', 33);
         size = read(fd, buffer, 32);
-        if (size <= 0 || size != 32)
-            done = true;
         if (size == 0)
             return;
+        if (size != 32)
+            done = true;
         (*new_line) = my_strcat((*new_line), buffer, FREE_FIRST);
     }
 }
