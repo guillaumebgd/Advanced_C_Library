@@ -6,8 +6,6 @@
 ##
 
 SRC					=	__match.c								\
-						__my_put_double.c						\
-						__my_put_nbr_u.c						\
 						__my_put_nbr.c							\
 						__my_putchar.c							\
 						__my_str_contains.c						\

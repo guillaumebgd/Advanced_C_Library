@@ -16,7 +16,6 @@ TESTS_LIBMY			=	tests/tests_libmy/test_get_next_line.c			\
 						tests/tests_libmy/test_my_match_shell.c			\
 						tests/tests_libmy/test_my_match.c				\
 						tests/tests_libmy/test_my_memset.c				\
-						tests/tests_libmy/test_my_put_double.c			\
 						tests/tests_libmy/test_my_put_nbr.c				\
 						tests/tests_libmy/test_my_put_unsigned_nbr.c	\
 						tests/tests_libmy/test_my_putchar.c				\

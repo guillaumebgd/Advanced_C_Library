@@ -28,6 +28,8 @@
 
 #define NONE (0)
 
+#define ABS(x) ((x < 0) ? (-x) : (x))
+
 #define BINARY_BASE ("01")
 #define OCTAL_BASE ("01234567")
 #define DECIMAL_BASE ("0123456789")
@@ -213,9 +215,6 @@ static inline bool my_dputchar(const char c, const int fd)
     return (__my_putchar(c, fd));
 }
 
-#define NO_COUNT_PRINTED_CHAR (0)
-#define COUNT_PRINTED_CHAR (1)
-
 //////////////////////////
 
 //////////////////////////
@@ -224,18 +223,21 @@ static inline bool my_dputchar(const char c, const int fd)
 
 void __my_strcpy(const char *template, char *dest, const ssize_t c, const size_t _m);
 
+//Copies characters from 'template' to 'dest'.
 static inline void my_strcpy(const char *template, char *dest)
 {
     __my_strcpy(template, dest, 0, NONE);
 }
 
-static inline void my_strncpy(const char *template, char *dest, const ssize_t limit)
+//Copies 'n' characters from 'template' to 'dest'.
+static inline void my_strncpy(const char *template, char *dest, const ssize_t n)
 {
-    if (limit < 0)
+    if (n < 0)
         return;
-    __my_strcpy(template, dest, limit, UNTIL_INDEX);
+    __my_strcpy(template, dest, n, UNTIL_INDEX);
 }
 
+//Copies characters from 'template' to 'dest' until reaching the 'c' char or '\0'.
 static inline void my_strcpy_char(const char *template, char *dest, const char c)
 {
     __my_strcpy(template, dest, (ssize_t)c, UNTIL_CHAR);
@@ -243,28 +245,35 @@ static inline void my_strcpy_char(const char *template, char *dest, const char c
 
 char *__my_strdup(const char *template, const ssize_t c, const size_t _m);
 
+//Allocates and returns a new string and copies characters from 'template' to it.
 static inline char *my_strdup(const char *template)
 {
     return (__my_strdup(template, 0, NONE));
 }
 
-static inline char *my_strndup(const char *template, const ssize_t limit)
+//Allocates and returns a new string and 'n' copies characters from 'template' to it.
+static inline char *my_strndup(const char *template, const ssize_t n)
 {
-    if (limit < 0)
+    if (n < 0)
         return (NULL);
-    return (__my_strdup(template, limit, UNTIL_INDEX));
+    return (__my_strdup(template, n, UNTIL_INDEX));
 }
 
+//Allocates and returns a new string and copies characters, until reaching the 'c' character
+//or '\0', from 'template' to it.
 static inline char *my_strdup_char(const char *template, const char c)
 {
     return (__my_strdup(template, (ssize_t)c, UNTIL_CHAR));
 }
 
-
 #define FREE_FIRST (1)
 #define FREE_SECOND (2)
 #define FREE_BOTH (FREE_FIRST | FREE_SECOND)
 
+//Concatenates the 'second' string to the 'first' one.
+//
+//Given flags declared above this function in 'my.h' can be used in 'free_opt'
+//in order to free, if you want, 'first' or/and 'second'.
 char *my_strcat(char *first, char *second, const size_t free_opt);
 
 //////////////////////////
@@ -273,78 +282,83 @@ char *my_strcat(char *first, char *second, const size_t free_opt);
 // Put Signed numbers //
 ////////////////////////
 
+#define NO_COUNT_PRINTED_CHAR (0)
+#define COUNT_PRINTED_CHAR (1 << 1)
+#define PUT_UNSIGNED (1 << 2)
+#define PUT_SIGNED (1 << 3)
+
 ssize_t __my_put_nbr(const ssize_t nb, const char base[], const size_t _m, const int fd);
 
 //Prints a given signed onto the STDOUT.
 static inline bool my_put_nbr(const ssize_t nb)
 {
-    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given binary signed onto the STDOUT.
 static inline bool my_put_nbr_binary(const ssize_t nb)
 {
-    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given octal signed onto the STDOUT.
 static inline bool my_put_nbr_octal(const ssize_t nb)
 {
-    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given lowercase hexadecimal signed onto the STDOUT.
 static inline bool my_put_nbr_lower_hex(const ssize_t nb)
 {
-    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given lowercase hexadecimal signed onto the STDOUT.
 static inline bool my_put_nbr_upper_hex(const ssize_t nb)
 {
-    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given signed onto the STDOUT according to its given base.
 static inline bool my_put_nbr_base(const ssize_t nb, const char base[])
 {
-    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, STDOUT_FILENO));
 }
 
 //Prints a given signed onto the given file descriptor.
 static inline bool my_dput_nbr(const ssize_t nb, const int fd)
 {
-    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //Prints a given binary signed onto the given file descriptor.
 static inline bool my_dput_nbr_binary(const ssize_t nb, const int fd)
 {
-    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //Prints a given octal signed onto the given file descriptor.
 static inline bool my_dput_nbr_octal(const ssize_t nb, const int fd)
 {
-    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //Prints a given lowercase hexadecimal signed onto the given file descriptor.
 static inline bool my_dput_nbr_lower_hex(const ssize_t nb, const int fd)
 {
-    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //Prints a given lowercase hexadecimal signed onto the given file descriptor.
 static inline bool my_dput_nbr_upper_hex(const ssize_t nb, const int fd)
 {
-    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //Prints a given signed onto the given file descriptor according to its given base.
 static inline bool my_dput_nbr_base(const ssize_t nb, const char base[], const int fd)
 {
-    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR | PUT_SIGNED, fd));
 }
 
 //////////////////////////
@@ -353,91 +367,79 @@ static inline bool my_dput_nbr_base(const ssize_t nb, const char base[], const i
 // Put Unsigned numbers //
 //////////////////////////
 
-ssize_t __my_put_nbr_u(const size_t nb, const char base[], const size_t _m, const int fd);
-
 //Prints a given unsigned onto the STDOUT.
 static inline bool my_put_unsigned_nbr(const size_t nb)
 {
-    return (__my_put_nbr_u(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given binary unsigned onto the STDOUT.
 static inline bool my_put_unsigned_nbr_binary(const size_t nb)
 {
-    return (__my_put_nbr_u(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given octal unsigned onto the STDOUT.
 static inline bool my_put_unsigned_nbr_octal(const size_t nb)
 {
-    return (__my_put_nbr_u(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given lowercase hexadecimal unsigned onto the STDOUT.
 static inline bool my_put_unsigned_nbr_lower_hex(const size_t nb)
 {
-    return (__my_put_nbr_u(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given lowercase hexadecimal unsigned onto the STDOUT.
 static inline bool my_put_unsigned_nbr_upper_hex(const size_t nb)
 {
-    return (__my_put_nbr_u(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given unsigned onto the STDOUT according to its given base.
 static inline bool my_put_unsigned_nbr_base(const size_t nb, const char base[])
 {
-    return (__my_put_nbr_u(nb, base, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
+    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, STDOUT_FILENO));
 }
 
 //Prints a given unsigned onto the given file descriptor.
 static inline bool my_dput_unsigned_nbr(const size_t nb, const int fd)
 {
-    return (__my_put_nbr_u(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, DECIMAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //Prints a given binary unsigned onto the given file descriptor.
 static inline bool my_dput_unsigned_nbr_binary(const size_t nb, const int fd)
 {
-    return (__my_put_nbr_u(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, BINARY_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //Prints a given octal unsigned onto the given file descriptor.
 static inline bool my_dput_unsigned_nbr_octal(const size_t nb, const int fd)
 {
-    return (__my_put_nbr_u(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, OCTAL_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //Prints a given lowercase hexadecimal unsigned onto the given file descriptor.
 static inline bool my_dput_unsigned_nbr_lower_hex(const size_t nb, const int fd)
 {
-    return (__my_put_nbr_u(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, HEXADECIMAL_LOWERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //Prints a given lowercase hexadecimal unsigned onto the given file descriptor.
 static inline bool my_dput_unsigned_nbr_upper_hex(const size_t nb, const int fd)
 {
-    return (__my_put_nbr_u(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, HEXADECIMAL_UPPERCASE_BASE, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //Prints a given unsigned onto the given file descriptor according to its given base.
 static inline bool my_dput_unsigned_nbr_base(const size_t nb, const char base[], const int fd)
 {
-    return (__my_put_nbr_u(nb, base, NO_COUNT_PRINTED_CHAR, fd));
+    return (__my_put_nbr(nb, base, NO_COUNT_PRINTED_CHAR | PUT_UNSIGNED, fd));
 }
 
 //////////////////////////
-
-//ssize_t __my_put_double(const double nb, const size_t _m, const int fd);
-
-//Prints a double onto the STDOUT.
-/*static inline bool my_put_double(const double nb)
-{
-    return (__my_put_double(nb, NO_COUNT_PRINTED_CHAR, STDOUT_FILENO));
-}*/
-
-///////////////////////////////////////////////////////////////
 
 //////////////////
 // File parsing //
