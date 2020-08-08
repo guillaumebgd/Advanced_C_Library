@@ -25,7 +25,6 @@ bool my_mass_eq(size_t nb_args, first, ...);
 Checks whether the <code>first</code> argument matches with any following or not.<br>
 
 * The arguments, apart from <code>size_t nb_args</code>, can be anything and that's why the types of the following arguments aren't shown in the prototype above.<br>
-<br>
 
 ***
 
