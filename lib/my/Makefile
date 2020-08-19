@@ -17,6 +17,7 @@ MAIN	=	$(addprefix $(ROOT_DIR_PATH), main.c)
 
 SRC	=	__my_get_file_part.c	\
 	__my_match.c	\
+	__my_nbr_size.c	\
 	__my_put_nbr.c	\
 	__my_putchar.c	\
 	__my_str_contains.c	\
@@ -52,6 +53,7 @@ SRC_TESTS	=	$(addprefix $(SRC_TESTS_LOCATION), test_get_next_line.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_contains_list.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_eq_str.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_strcat.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_nbr_size.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_strlen.c)	\
 
 override CFLAGS	=	-Wall -Wextra
@@ -75,8 +77,8 @@ debug:
 
 tests_run:
 	$(CC) -o $(UNIT_TESTS_BINARY) $(SRC) $(SRC_TESTS) $(CPPFLAGS) -lcriterion --coverage
-	./$(UNIT_TESTS_BINARY)
-	$(RM) $(UNIT_TESTS_BINARY)
+	-./$(UNIT_TESTS_BINARY)
+	-$(RM) $(UNIT_TESTS_BINARY)
 
 clean:
 	$(RM) $(OBJ)

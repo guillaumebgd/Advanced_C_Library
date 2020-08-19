@@ -13,8 +13,9 @@ unit_tests
 # Libraries
 *.a
 
-# IDE local files
+# Local files
 .vscode
+main.c
 
 ##############
 # C Specific #
