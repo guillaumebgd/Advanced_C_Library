@@ -5,82 +5,38 @@
 ## Makefile use for Advanced_C_Library compilation
 ##
 
-SRC_LIBMY			=	lib/my											\
-
-TESTS_LIBMY			=	tests/tests_libmy/test_get_next_line.c			\
-						tests/tests_libmy/test_my_is_alpha.c			\
-						tests/tests_libmy/test_my_is_alphanum.c			\
-						tests/tests_libmy/test_my_is_num.c				\
-						tests/tests_libmy/test_my_mass_eq.c				\
-						tests/tests_libmy/test_my_mass_str_eq_str.c		\
-						tests/tests_libmy/test_my_match_shell.c			\
-						tests/tests_libmy/test_my_match.c				\
-						tests/tests_libmy/test_my_memset.c				\
-						tests/tests_libmy/test_my_put_nbr.c				\
-						tests/tests_libmy/test_my_put_unsigned_nbr.c	\
-						tests/tests_libmy/test_my_putchar.c				\
-						tests/tests_libmy/test_my_str_contains.c		\
-						tests/tests_libmy/test_my_str_contains_index.c	\
-						tests/tests_libmy/test_my_str_contains_list.c	\
-						tests/tests_libmy/test_my_str_eq_str.c			\
-						tests/tests_libmy/test_my_strcat.c				\
-						tests/tests_libmy/test_my_strlen.c				\
-
-NAME_LIBMY			=	-lmy											\
-
-CRITERION_FLAGS		=	-lcriterion --coverage							\
-
-override LDFLAGS	+=	-L./lib											\
-
-override LDLIBS		+=	$(CRITERION_FLAGS)								\
-						$(NAME_LIBMY)									\
-
-override CPPFLAGS	+=	-I ./include/my									\
-
-RM					=	rm -rf											\
-
-MV					=	mv												\
-
-MKDIR				=	mkdir											\
-
-MAKE				=	make											\
-
-CC					=	gcc												\
-
-TESTS_DIR			=	tests/											\
-
-COVERAGE_DIR		=	coverage/										\
-
-UNIT_TESTS_BINARY	=	unit_tests										\
+SRC_LIBMYCLOCK	=	lib/my/
 
 all:
-	$(MAKE) -C $(SRC_LIBMY)
+	$(MAKE) -C $(SRC_LIBMYCLOCK)
 
 debug:
-	$(MAKE) debug -C $(SRC_LIBMY)
+	$(MAKE) debug -C $(SRC_LIBMYCLOCK)
 
 tests_run:
 	@find -name "*.gcda" -delete
 	@find -name "*.gcno" -delete
-	$(MAKE) -C $(SRC_LIBMY)
-	$(CC) -o $(UNIT_TESTS_BINARY) $(TESTS_LIBMY) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
-	./$(UNIT_TESTS_BINARY)
-	$(MKDIR) -p $(COVERAGE_DIR)
-	$(MV) *.gcda $(COVERAGE_DIR)
-	$(MV) *.gcno $(COVERAGE_DIR)
-	$(RM) $(UNIT_TESTS_BINARY)
+	-$(MAKE) tests_run -C $(SRC_LIBMYCLOCK)
+	find -name "test_*.gcda" -delete
+	find -name "test_*.gcno" -delete
 
-clean:
+coverage: tests_run
+	gcovr --exclude tests/
+	gcovr --exclude tests/ --branches
 	@find -name "*.gcda" -delete
 	@find -name "*.gcno" -delete
-	$(RM) $(UNIT_TESTS_BINARY)
-	$(MAKE) clean -C $(SRC_LIBMY)
+
+clean:
+	$(RM) -rf $(UNIT_TESTS_BINARY)
+	$(RM) -rf $(TEST_COVERAGE_DIR)
+	@find -name "*.gcda" -delete
+	@find -name "*.gcno" -delete
+	$(MAKE) clean -C $(SRC_LIBMYCLOCK)
 
 fclean: clean
-	$(MAKE) fclean -C $(SRC_LIBMY)
-	$(RM) $(COVERAGE_DIR)
+	$(MAKE) fclean -C $(SRC_LIBMYCLOCK)
 
 re:	fclean all
 
 .NOTPARALLEL:
-.PHONY: all debug tests_run clean fclean re
+.PHONY: all debug tests_run coverage clean fclean re

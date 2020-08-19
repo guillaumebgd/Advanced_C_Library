@@ -25,7 +25,12 @@ Test(my_str_contains, null_string_false)
 
 Test(my_str_contains, null_character_false)
 {
-    cr_assert_eq(my_str_contains("Test", '\0'), false);
+    cr_assert_eq(my_str_contains("Test", -1), false);
+}
+
+Test(my_str_contains, null_char_true)
+{
+    cr_assert_eq(my_str_contains("Test", '\0'), true);
 }
 
 Test(my_str_contains, all_null_false)

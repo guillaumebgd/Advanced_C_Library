@@ -28,145 +28,94 @@
 
 #define NONE (0)
 
-#define ABS(x) ((x < 0) ? (-x) : (x))
-
 #define BINARY_BASE ("01")
 #define OCTAL_BASE ("01234567")
 #define DECIMAL_BASE ("0123456789")
 #define HEXADECIMAL_LOWERCASE_BASE ("0123456789abcdef")
 #define HEXADECIMAL_UPPERCASE_BASE ("0123456789ABCDEF")
 
+#define ABS(x) ((x < 0) ? (-x) : (x))
+
 ///////////////////////////////////////////////////////////////
 
-/////////////////////////
-// Objects Comparisons //
-/////////////////////////
+////////////////////////
+// Character matching //
+////////////////////////
 
-bool __my_mass_eq(size_t nb_args, const size_t first, ...);
-
-//Returns if first matches with any args from va_args.
+//Checks whether a given char is alphabetical (in range [a-z] or [A-Z]) or not.
 //
-//nb -> nb of va_args.
-#define my_mass_eq(nb_args, first, ...) \
-                    (__my_mass_eq(nb_args, (size_t)first, __VA_ARGS__))
-
-//Returns if a given char is alphabetical.
+//Returns (true) on success.
+//Returns (false) otherwise.
 bool my_is_alpha(const char c);
 
-//Returns if a given char is numerical.
+//Checks whether a given char is numerical (in range [0-9]) or not.
+//
+//Returns (true) on success.
+//Returns (false) otherwise.
 bool my_is_num(const char c);
 
-//Returns if a given char is alphabetical or numerical.
+
+//Checks whether a given char is alphabetical or numerical (in range [a-z] or [A-Z] or [0-9]) or not.
+//
+//Returns (true) on success.
+//Returns (false) otherwise.
 static inline bool my_is_alphanum(const char c)
 {
     return (my_is_alpha(c) | my_is_num(c));
 }
 
-///////////////////////
-
-#define DONT_GET_CHAR_INDEX (0)
-#define GET_CHAR_INDEX (1)
-
-ssize_t __my_str_contains(const char *str, const char list[], const size_t _m);
-
-//Returns whether or not a given character is in a given string.
-static inline bool my_str_contains(const char *str, const char c)
-{
-    char list[2];
-
-    list[0] = c;
-    list[1] = '\0';
-    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
-}
-
-//Returns an index to a given character in a given string.
-//
-//If not found, returns -1.
-static inline size_t my_str_contains_index(const char *str, const char c)
-{
-    char list[2];
-
-    list[0] = c;
-    list[1] = '\0';
-    return (__my_str_contains(str, list, GET_CHAR_INDEX));
-}
-
-//Returns whether atleast one character in a given list is in a given string.
-static inline bool my_str_contains_list(const char *str, const char list[])
-{
-    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
-}
-
 ///////////////////////////////////////////////////////////////
 
-/////////////
-// Fillers //
-/////////////
-
-//Puts 'nb' 'c's in 'buffer' from its beginning.
-void *my_memset(void *buffer, const int c, const size_t nb);
-
-///////////////////////////////////////////////////////////////
-
-/////////////////////////////
-// String matching related //
-/////////////////////////////
+/////////////////////
+// String matching //
+/////////////////////
 
 /////////////////////////////
 #include "my_special_chars.h"
 /////////////////////////////
 
-///////////////////////
+//Wildcards Flags
 
-#define NO_WC (0)
 #define WC_STR (1)
 #define WC_CHAR (1 << 1)
-#define WC_STR_AND_CHAR (WC_STR | WC_CHAR)
+#define WC_STR_CHAR (WC_STR | WC_CHAR)
 
-bool __match(const char *s1, const char *s2, const size_t _m);
+/////////////////////////////
 
-//Checks whether two NULL-terminated strings match.
+bool __my_match(const char *s1, const char *s2, const size_t _m);
+
+//Checks whether 2 NULL-terminated strings are seemingly identical or not.
 //
-//-> first can contain wildcards to match with second.
-//-> wildcards in second don't matter.
-//
-//Possible wildcards:
-//WC_ANY_STR (by default '*') -> defined in 'my_special_chars.h'.
+//- The string wildcard (by default '*', defined in 'include/my/my_special_chars.h:19')
+//may be used inside of the 'first' argument.
 static inline bool my_match(const char *first, const char *second)
 {
-    return (__match(first, second, WC_STR));
+    return (__my_match(first, second, WC_STR));
 }
 
-//Checks whether two NULL-terminated strings match.
+//Checks whether 2 NULL-terminated strings are seemingly identical or not.
 //
-//-> first can contain wildcards to match with second.
-//-> wildcards in second don't matter.
-//
-//Possible wildcards:
-//WC_ANY_STR (by default '*') -> defined in 'my_special_chars.h'.
-//WC_ANY_CHAR (by default '?') -> defined in 'my_special_chars.h'. 
+//- The string wildcard (by default '*', defined in 'include/my/my_special_chars.h:19')
+//may be used inside of the 'first' argument.
+//- The character wildcard (by default '?', defined in 'include/my/my_special_chars.h:20')
+//may be used inside of the 'first' argument.
 static inline bool my_match_shell(const char *first, const char *second)
 {
-    return (__match(first, second, WC_STR_AND_CHAR));
+    return (__my_match(first, second, WC_STR_CHAR));
 }
 
-//Checks whether two NULL-terminated strings match.
+//Checks whether 2 NULL-terminated strings are entirely identical or not.
 static inline bool my_str_eq_str(const char *first, const char *second)
 {
-    return (__match(first, second, NO_WC));
+    return (__my_match(first, second, NONE));
 }
 
-//Returns if mask matches with any args from va_args.
-//
-//nb -> nb of va_args.
-bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
+///////////////////////////////////////////////////////////////
 
 ///////////////////////
 
 #define UNTIL_INDEX (1)
 #define UNTIL_CHAR (1 << 1)
-
-///////////////////////////////////////////////////////////////
 
 ///////////////////////////
 // Objects sizes related //
@@ -194,6 +143,79 @@ static inline ssize_t my_strlen_char(const char *str, const char c)
 {
     return (__my_strlen(str, (ssize_t)c, UNTIL_CHAR));
 }
+
+///////////////////////////////////////////////////////////////
+
+///////////////////////
+// Search in strings //
+///////////////////////
+
+#define DONT_GET_CHAR_INDEX (0)
+#define GET_CHAR_INDEX (1)
+
+ssize_t __my_str_contains(const char *str, const char list[], const size_t _m);
+
+//Checks whether a 'c' character is inside a 'str' string or not.
+//
+//Returns (true) if 'c' is in 'str'.
+//Returns (false) if 'c' is not in 'str'.
+static inline bool my_str_contains(const char *str, const char c)
+{
+    char list[2];
+    ssize_t len = -1;
+
+    if (str && c == '\0') {
+        len = my_strlen(str);
+        return (len < 0 ? false : (str[len]) == c);
+    }
+    list[0] = c;
+    list[1] = '\0';
+    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
+}
+
+//Returns an index to a given character in a given string.
+//
+//If not found, returns -1.
+static inline ssize_t my_str_contains_index(const char *str, const char c)
+{
+    char list[2];
+
+    list[0] = c;
+    list[1] = '\0';
+    return (__my_str_contains(str, list, GET_CHAR_INDEX));
+}
+
+//Returns whether atleast one character in a given list is in a given string.
+static inline bool my_str_contains_list(const char *str, const char list[])
+{
+    return (__my_str_contains(str, list, DONT_GET_CHAR_INDEX));
+}
+
+///////////////////////////////////////////////////////////////
+
+/////////////
+// Fillers //
+/////////////
+
+//Puts 'nb' 'c's in 'buffer' from its beginning.
+void *my_memset(void *buffer, const int c, const size_t nb);
+
+/////////////////////////
+// Objects Comparisons //
+/////////////////////////
+
+bool __my_mass_eq(size_t nb_args, const size_t first, ...);
+
+//Returns if first matches with any args from va_args.
+//
+//nb -> nb of va_args.
+#define my_mass_eq(nb_args, first, ...) \
+                    (__my_mass_eq(nb_args, (size_t)first, __VA_ARGS__))
+
+//Returns if mask matches with any args from va_args.
+//
+//nb -> nb of va_args.
+bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
 
 ///////////////////////////////////////////////////////////////
 
@@ -441,12 +463,35 @@ static inline bool my_dput_unsigned_nbr_base(const size_t nb, const char base[],
 
 //////////////////////////
 
-//////////////////
-// File parsing //
-//////////////////
+/////////////////////
+// File Management //
+/////////////////////
 
 //Gets the next line of a file and returns it.
 char *get_next_line(const int fd);
+
+//Checks whether a file has the given extension.
+bool my_is_file_extension(const char *file, const char *extension);
+
+#define GET_FILE_NAME (1)
+#define GET_FILE_PATH (1 << 1)
+
+char *__my_get_file_part(const char *file_with_path, const size_t _m);
+
+//Gets from a string, containing or not a path to a file, the name of the file
+//without the path part.
+static inline char *my_get_file_name(const char *pathed_file)
+{
+    return (__my_get_file_part(pathed_file, GET_FILE_NAME));
+}
+
+//Gets from a string, containing a path to a file, the path.
+static inline char *my_get_file_path(const char *pathed_file)
+{
+    return (__my_get_file_part(pathed_file, GET_FILE_PATH));
+}
+
+//////////////////////////////////
 
 ///////////////////////////////////////////////////////////////
 

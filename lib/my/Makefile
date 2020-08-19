@@ -5,51 +5,86 @@
 ## Makefile use for libmy compilation
 ##
 
-SRC					=	__match.c								\
-						__my_put_nbr.c							\
-						__my_putchar.c							\
-						__my_str_contains.c						\
-						__my_strcpy.c							\
-						__my_strdup.c							\
-						__my_strlen.c							\
-						get_next_line.c							\
-						my_is_alpha.c							\
-						my_is_num.c								\
-						my_mass_eq.c							\
-						my_mass_str_eq_str.c					\
-						my_memset.c								\
-						my_strcat.c								\
+ROOT_DIR_PATH	=	../../
 
-override CFLAGS		=	-Wall -Wextra							\
+LIB_DIR_PATH	=	../
 
-override CPPFLAGS	+=	-I ./../../include/my					\
+SRC_TESTS_LOCATION	=	$(addprefix $(ROOT_DIR_PATH), tests/tests_libmy/)
 
-OBJ					=	$(SRC:.c=.o)							\
+UNIT_TESTS_BINARY	=	$(addprefix $(ROOT_DIR_PATH), unit_tests)	\
 
-NAME				=	libmy.a									\
+MAIN	=	$(addprefix $(ROOT_DIR_PATH), main.c)
 
-CP					=	cp										\
+SRC	=	__my_get_file_part.c	\
+	__my_match.c	\
+	__my_put_nbr.c	\
+	__my_putchar.c	\
+	__my_str_contains.c	\
+	__my_strcpy.c	\
+	__my_strdup.c	\
+	__my_strlen.c	\
+	get_next_line.c	\
+	my_is_alpha.c	\
+	my_is_file_extension.c	\
+	my_is_num.c	\
+	my_mass_eq.c	\
+	my_mass_str_eq_str.c	\
+	my_memset.c	\
+	my_strcat.c
 
-AR					=	ar										\
+SRC_TESTS	=	$(addprefix $(SRC_TESTS_LOCATION), test_get_next_line.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_name.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alpha.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alphanum.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_path.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_file_extension.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_num.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_mass_eq.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_mass_str_eq_str.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_match_shell.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_match.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_memset.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_put_nbr.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_put_unsigned_nbr.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_putchar.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_contains.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_contains_index.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_contains_list.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_str_eq_str.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_strcat.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_strlen.c)	\
 
-OBJ					=	$(SRC:.c=.o)							\
+override CFLAGS	=	-Wall -Wextra
+
+override CPPFLAGS	+=	-I $(addprefix $(ROOT_DIR_PATH), include/my/)
+
+OBJ	=	$(SRC:.c=.o)
+
+NAME	=	libmy.a
+
+MV	=	mv
 
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	$(AR) rc $(NAME) $(OBJ)
-	$(CP) -u $(NAME) ../
+	$(MV) $(NAME) $(LIB_DIR_PATH)
 
 debug:
-	$(CC) -g -o ../../$@ ../../main.c $(SRC) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
+	$(CC) -g -o $(ROOT_DIR_PATH)$@ $(MAIN) $(SRC) $(CPPFLAGS)
+
+tests_run:
+	$(CC) -o $(UNIT_TESTS_BINARY) $(SRC) $(SRC_TESTS) $(CPPFLAGS) -lcriterion --coverage
+	./$(UNIT_TESTS_BINARY)
+	$(RM) $(UNIT_TESTS_BINARY)
 
 clean:
 	$(RM) $(OBJ)
 
 fclean:	clean
-	$(RM) ../../debug
+	$(RM) $(ROOT_DIR_PATH)debug
 	$(RM) $(NAME)
-	$(RM) ../$(NAME)
+	$(RM) $(LIB_DIR_PATH)$(NAME)
 
 re:	fclean all
 

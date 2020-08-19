@@ -10,10 +10,10 @@
 static ssize_t __my_div_mod_op(const ssize_t __nb, const ssize_t len_base, const size_t _m, const bool __op)
 {
     if (_m & PUT_UNSIGNED) {
-        if (__op == false)
+        if (__op == 0)
             return ((size_t)__nb / ABS(len_base));
         return ((size_t)__nb % ABS(len_base));
-    } else if (__op == false) {
+    } else if (__op == 0) {
         return (__nb / len_base);
     }
     return (__nb % len_base);

@@ -17,7 +17,7 @@ Test(get_next_line, basic_normal_file_easy_line_true)
 {
     char *result = NULL;
     char expected[] = "/*";
-    const int fd = open("./tests/tests_libmy/test_get_next_line.c", O_RDONLY);
+    const int fd = open("__my_putchar.c", O_RDONLY);
 
     result = get_next_line(fd);
     close(fd);
