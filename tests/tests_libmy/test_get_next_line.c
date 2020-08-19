@@ -10,7 +10,11 @@
 
 Test(get_next_line, wrong_file_descriptor_null)
 {
-    cr_assert_eq(get_next_line(-1), NULL);
+    char *result = get_next_line(-1);
+
+    cr_expect(result == NULL);
+    if (result)
+        free(result);
 }
 
 Test(get_next_line, basic_normal_file_easy_line_true)

@@ -9,7 +9,7 @@
 
 static ssize_t __my_div_mod_op(const ssize_t __nb, const ssize_t len_base, const size_t _m, const bool __op)
 {
-    if (_m & PUT_UNSIGNED) {
+    if (_m & UNSIGNED) {
         if (__op == 0)
             return ((size_t)__nb / ABS(len_base));
         return ((size_t)__nb % ABS(len_base));
@@ -31,13 +31,13 @@ static ssize_t __my_put_nbr_c(const ssize_t nb, const char base[], const size_t 
     ssize_t count = 0;
     ssize_t tmp = 0;
 
-    if ((_m & PUT_SIGNED) && nb < 0) {
+    if ((_m & SIGNED) && nb < 0) {
         tmp = my_dputchar('-', fd);
         __my_update_count(&count, tmp);
         tmp = __my_put_nbr_c(nb / len_base, base, _m, fd);
         __my_update_count(&count, tmp);
     }
-    if (((_m & PUT_SIGNED) && nb >= len_base) || ((_m & PUT_UNSIGNED) && (size_t)nb >= ABS(len_base))) {
+    if (((_m & SIGNED) && nb >= len_base) || ((_m & UNSIGNED) && (size_t)nb >= ABS(len_base))) {
         tmp = __my_put_nbr_c(__my_div_mod_op(nb, len_base, _m, 0), base, _m, fd);
         __my_update_count(&count, tmp);
         tmp = __my_put_nbr_c(__my_div_mod_op(nb, len_base, _m, 1), base, _m, fd);
