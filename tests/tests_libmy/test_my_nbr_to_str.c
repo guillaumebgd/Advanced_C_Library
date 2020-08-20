@@ -18,6 +18,26 @@ Test(my_nbr_to_str, easy_positive_int_to_str)
         free(result);
 }
 
+Test(my_nbr_to_str, easy_positive_digit_to_str)
+{
+    char expected[] = "1";
+    char *result = my_nbr_to_str(1);
+
+    cr_expect_str_eq(result, expected);
+    if (result)
+        free(result);
+}
+
+Test(my_unsigned_nbr_to_str, hard_negative_int_to_str)
+{
+    char expected[] = "-2147483648";
+    char *result = my_unsigned_nbr_to_str(-2147483648);
+
+    cr_expect_str_eq(result, expected);
+    if (result)
+        free(result);
+}
+
 Test(my_nbr_to_str, easy_negative_int_to_str)
 {
     char expected[] = "-158";
@@ -54,6 +74,15 @@ Test(my_nbr_to_str, hard_min_int_to_str)
     char *result = my_nbr_to_str(-2147483648);
 
     cr_expect_str_eq(result, expected);
+    if (result)
+        free(result);
+}
+
+Test(my_nbr_to_str_base, unary_base)
+{
+    char *result = my_nbr_to_str_base(10, "1");
+
+    cr_expect(result == NULL);
     if (result)
         free(result);
 }

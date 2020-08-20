@@ -43,3 +43,15 @@ Test(my_convert_base, multi_convertion)
     if (result)
         free(result);
 }
+
+Test(my_convert_base_signed, multi_convertion_negative)
+{
+    char expected[] = "-A";
+    char *result = NULL;
+    const char *nb = "-1010";
+
+    result = my_convert_base_signed(nb, BINARY_BASE, HEXADECIMAL_UPPERCASE_BASE);
+    cr_expect_str_eq(result, expected);
+    if (result)
+        free(result);
+}

@@ -17,7 +17,5 @@ char *__my_get_file_part(const char *file_with_path, const size_t _m)
     for (; index >= 0 && file_with_path[index] != '/'; index -= 1);
     if (_m & GET_FILE_NAME)
         return (my_strdup(&file_with_path[(size_t)(index + 1)]));
-    if (_m & GET_FILE_PATH)
-        return (my_strndup(file_with_path, (size_t)(index + 1)));
-    return (NULL);
+    return (my_strndup(file_with_path, (size_t)(index + 1)));
 }

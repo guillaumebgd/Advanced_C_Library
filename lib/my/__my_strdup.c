@@ -9,8 +9,8 @@
 
 char *__my_strdup(const char *template, const ssize_t c, const size_t _m)
 {
-    char *dest = NULL;
     const ssize_t len_template = __my_strlen(template, c, _m);
+    char *dest = NULL;
 
     if (len_template < 0)
         return (NULL);

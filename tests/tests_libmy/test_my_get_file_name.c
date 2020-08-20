@@ -19,6 +19,16 @@ Test(my_get_file_name, easy_file_name)
         free(result);
 }
 
+Test(my_get_file_name, zero_given)
+{
+    char *result = NULL;
+
+    result = my_get_file_name("");
+    cr_expect_str_eq(result, "");
+    if (result)
+        free(result);
+}
+
 Test(my_get_file_name, null_given)
 {
     char *result = NULL;
