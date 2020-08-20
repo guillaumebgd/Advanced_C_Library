@@ -34,8 +34,7 @@ static bool reassign_string_pointers(char **stock, char **new_line)
         tmp = my_strndup(*new_line, index);
         if ((*new_line)[index + 1])
             (*stock) = my_strdup(&(*new_line)[index + 1]);
-        if (*new_line)
-            free(*new_line);
+        free(*new_line);
         *new_line = tmp;
         return (true);
     }

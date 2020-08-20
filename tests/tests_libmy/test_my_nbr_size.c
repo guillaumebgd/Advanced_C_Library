@@ -193,3 +193,11 @@ Test(my_unsigned_nbr_size_base, unsigned_base)
 
     cr_assert_eq(size, my_strlen(expected));
 }
+
+Test(my_nbr_size_base, unary_base)
+{
+    const size_t nb = 10;
+    const size_t size = my_unsigned_nbr_size_base(nb, "E");
+
+    cr_assert_eq(size, 0);
+}

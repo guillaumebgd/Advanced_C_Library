@@ -42,3 +42,38 @@ Test(my_get_nbr, invalid_hard_get_nbr)
 
     cr_assert_eq(nb, 0);
 }
+
+Test(__my_get_nbr, one_neg_sign_true)
+{
+    const ssize_t nb = __my_get_nbr("-109", DECIMAL_BASE, ONE_NEG_SIGN | SIGNED);
+
+    cr_assert_eq(nb, -109);
+}
+
+Test(__my_get_nbr, one_neg_sign_false)
+{
+    const ssize_t nb = __my_get_nbr("--109", DECIMAL_BASE, ONE_NEG_SIGN | SIGNED);
+
+    cr_assert_eq(nb, 0);
+}
+
+Test(__my_get_nbr, one_pos_sign_false)
+{
+    const ssize_t nb = __my_get_nbr("+109", DECIMAL_BASE, ONE_NEG_SIGN | SIGNED);
+
+    cr_assert_eq(nb, 0);
+}
+
+Test(__my_get_nbr, unary_base)
+{
+    const ssize_t nb = __my_get_nbr("10", "1", ONE_NEG_SIGN | SIGNED);
+
+    cr_assert_eq(nb, 0);
+}
+
+Test(__my_get_nbr, null_pointer_given)
+{
+    const ssize_t nb = __my_get_nbr(NULL, DECIMAL_BASE, ONE_NEG_SIGN | SIGNED);
+
+    cr_assert_eq(nb, 0);
+}

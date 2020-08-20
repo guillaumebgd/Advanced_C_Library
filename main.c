@@ -9,10 +9,6 @@
 
 int main(const int ac, const char **av)
 {
-    const char nb[] = "10";
-    char *result = my_convert_base(nb, DECIMAL_BASE, BINARY_BASE);
-
-    if (result)
-        free(result);
+    my_put_nbr_base(10, "1");
     return (0);
 }

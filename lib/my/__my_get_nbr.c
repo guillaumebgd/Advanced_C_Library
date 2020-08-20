@@ -14,8 +14,10 @@ static int __my_get_nbr_get_sign(char **tmp, const size_t _m)
     for (; **tmp && (**tmp == '-' || **tmp == '+'); *tmp += 1) {
         if (**tmp == '-') {
             sign_multiplier *= -1;
-            if (_m & ONE_NEG_SIGN)
+            if (_m & ONE_NEG_SIGN) {
+                *tmp += 1;
                 break;
+            }
         } else if (_m & ONE_NEG_SIGN) {
             break;
         }

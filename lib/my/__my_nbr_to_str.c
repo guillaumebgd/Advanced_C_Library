@@ -29,9 +29,8 @@ char *__my_nbr_to_str(ssize_t __s_nb, const char __base[], const size_t _m)
     if (__len == 0)
         return (NULL);
     __s = malloc(sizeof(char) * (__len + 1));
-    if (!__s) {
+    if (!__s)
         return (NULL);
-    }
     if (__n) {
         *__s++ = '-';
         __s_nb *= -1;
