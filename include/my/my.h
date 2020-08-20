@@ -630,18 +630,36 @@ static inline char *my_unsigned_nbr_to_str_base(const size_t nb, const char base
     return (__my_nbr_to_str((ssize_t)nb, base, SIGNED));
 }
 
-size_t __my_get_nbr(const char *__str, const size_t _m);
+///////////////////////
+
+#define ONE_NEG_SIGN (1 << 4)
+
+///////////////////////
+
+size_t __my_get_nbr(const char *__str, const char base[], const size_t _m);
 
 // Gets a signed from a string.
 static inline ssize_t my_get_nbr(const char *str)
 {
-    return ((ssize_t)__my_get_nbr(str, SIGNED));
+    return ((ssize_t)__my_get_nbr(str, DECIMAL_BASE, SIGNED));
 }
 
 // Gets an unsigned from a string.
 static inline size_t my_get_unsigned_nbr(const char *str)
 {
-    return (__my_get_nbr(str, UNSIGNED));
+    return (__my_get_nbr(str, DECIMAL_BASE, UNSIGNED));
+}
+
+char *__my_convert_base(const char *nb, const char base_from[], const char base_to[], const size_t _m);
+
+static char *my_convert_base_signed(const char *nb, const char base_from[], const char base_to[])
+{
+    return (__my_convert_base(nb, base_from, base_to, SIGNED | ONE_NEG_SIGN));
+}
+
+static char *my_convert_base(const char *nb, const char base_from[], const char base_to[])
+{
+    return (__my_convert_base(nb, base_from, base_to, UNSIGNED | ONE_NEG_SIGN));
 }
 
 //////////////////////////
