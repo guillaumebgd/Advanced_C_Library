@@ -16,6 +16,7 @@ unit_tests
 # Local files
 .vscode
 main.c
+debug
 
 ##############
 # C Specific #
