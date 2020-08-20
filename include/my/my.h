@@ -170,54 +170,82 @@ static inline ssize_t my_strlen_char(const char *str, const char c)
 
 ///////////////////////
 
-size_t __my_nbr_size(ssize_t __s_nb, const size_t _m);
+size_t __my_nbr_size(ssize_t __s_nb, const char __base[], const size_t _m);
 
-// Gets the number of digits that composes an int.
-static inline size_t my_int_size(const int nb)
+// my_nbr_size for signed's
+
+// Gets the number of digits that composes a signed.
+static inline size_t my_nbr_size(const ssize_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, SIGNED));
+    return (__my_nbr_size(nb, DECIMAL_BASE, SIGNED));
 }
 
-// Gets the number of digits that composes a long int.
-static inline size_t my_long_int_size(const long int nb)
+// Gets the number of digits that composes a signed, in binary base.
+static inline size_t my_nbr_size_binary(const ssize_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, SIGNED));
+    return (__my_nbr_size(nb, BINARY_BASE, SIGNED));
 }
 
-// Gets the number of digits that composes a long long int.
-static inline size_t my_long_long_int_size(const long long int nb)
+// Gets the number of digits that composes a signed, in octal base.
+static inline size_t my_nbr_size_octal(const ssize_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, SIGNED));
+    return (__my_nbr_size(nb, OCTAL_BASE, SIGNED));
 }
 
-// Gets the number of digits that composes a ssize_t.
-static inline size_t my_ssize_t_size(const ssize_t nb)
+// Gets the number of digits that composes a signed, in lowercase hexadecimal base.
+static inline size_t my_nbr_size_lower_hex(const ssize_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, SIGNED));
+    return (__my_nbr_size(nb, HEXADECIMAL_LOWERCASE_BASE, SIGNED));
 }
 
-// Gets the number of digits that composes an unsigned int.
-static inline size_t my_uint_size(const unsigned int nb)
+// Gets the number of digits that composes a signed, in uppercase hexadecimal base.
+static inline size_t my_nbr_size_upper_hex(const ssize_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_size(nb, HEXADECIMAL_UPPERCASE_BASE, SIGNED));
 }
 
-// Gets the number of digits that composes a long unsigned int.
-static inline size_t my_long_uint_size(const long unsigned int nb)
+// Gets the number of digits that composes a signed, in a given base.
+static inline size_t my_nbr_size_base(const ssize_t nb, const char base[])
 {
-    return (__my_nbr_size((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_size((ssize_t)nb, base, SIGNED));
 }
 
-// Gets the number of digits that composes a long long unsigned int.
-static inline size_t my_long_long_uint_size(const long long unsigned int nb)
+// my_nbr_size for unsigned's
+
+// Gets the number of digits that composes an unsigned.
+static inline size_t my_unsigned_nbr_size(const size_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_size((ssize_t)nb, DECIMAL_BASE, UNSIGNED));
 }
 
-// Gets the number of digits that composes a size_t.
-static inline size_t my_size_t_size(const size_t nb)
+// Gets the number of digits that composes an unsigned, in binary base.
+static inline size_t my_unsigned_nbr_size_binary(const size_t nb)
 {
-    return (__my_nbr_size((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_size((ssize_t)nb, BINARY_BASE, UNSIGNED));
+}
+
+// Gets the number of digits that composes an unsigned, in octal base.
+static inline size_t my_unsigned_nbr_size_octal(const size_t nb)
+{
+    return (__my_nbr_size((ssize_t)nb, OCTAL_BASE, UNSIGNED));
+}
+
+// Gets the number of digits that composes an unsigned, in lowercase hexadecimal base.
+static inline size_t my_unsigned_nbr_size_lower_hex(const size_t nb)
+{
+    return (__my_nbr_size((ssize_t)nb, HEXADECIMAL_LOWERCASE_BASE, UNSIGNED));
+}
+
+// Gets the number of digits that composes an unsigned, in uppercase hexadecimal base.
+static inline size_t my_unsigned_nbr_size_upper_hex(const size_t nb)
+{
+    return (__my_nbr_size((ssize_t)nb, HEXADECIMAL_UPPERCASE_BASE, UNSIGNED));
+}
+
+// Gets the number of digits that composes an unsigned, in a given base.
+static inline size_t my_unsigned_nbr_size_base(const size_t nb, const char base[])
+{
+    return (__my_nbr_size((ssize_t)nb, base, UNSIGNED));
 }
 
 ///////////////////////////////////////////////////////////////
@@ -524,54 +552,82 @@ static inline char *my_strdup_char(const char *template, const char c)
 // And if you don't want to free anything, use NONE.
 char *my_strcat(char *first, char *second, const size_t free_opt);
 
-char *__my_nbr_to_str(ssize_t __s_nb, const size_t _m);
+char *__my_nbr_to_str(ssize_t __s_nb, const char base[], const size_t _m);
 
-// Allocates a new string and places digits that makes an int into the string.
-static inline char *my_int_to_str(const int nb)
+// my_nbr_to_str for signed's
+
+// Allocates a new string and places digits that makes a signed into the string.
+static inline char *my_nbr_to_str(const ssize_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+    return (__my_nbr_to_str(nb, DECIMAL_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a long int into the string.
-static inline char *my_long_int_to_str(const long int nb)
+// Allocates a new string and places digits that makes a signed into the string, in binary base.
+static inline char *my_nbr_to_str_binary(const ssize_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+    return (__my_nbr_to_str(nb, BINARY_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a long long int into the string.
-static inline char *my_long_long_int_to_str(const long long int nb)
+// Allocates a new string and places digits that makes a signed into the string, in octal base.
+static inline char *my_nbr_to_str_octal(const ssize_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+    return (__my_nbr_to_str(nb, OCTAL_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a ssize_t into the string.
-static inline char *my_ssize_t_to_str(const ssize_t nb)
+// Allocates a new string and places digits that makes a signed into the string, in lowercase hexadecimal base.
+static inline char *my_nbr_to_str_lower_hex(const ssize_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+    return (__my_nbr_to_str(nb, HEXADECIMAL_LOWERCASE_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes an unsigned int into the string.
-static inline char *my_uint_to_str(const int nb)
+// Allocates a new string and places digits that makes a signed into the string, in uppercase hexadecimal base.
+static inline char *my_nbr_to_str_upper_hex(const ssize_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_to_str(nb, HEXADECIMAL_UPPERCASE_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a long unsigned int into the string.
-static inline char *my_long_uint_to_str(const long unsigned int nb)
+// Allocates a new string and places digits that makes a signed into the string, in a given base.
+static inline char *my_nbr_to_str_base(const ssize_t nb, const char base[])
 {
-    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_to_str(nb, base, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a long long unsigned int into the string.
-static inline char *my_long_long_uint_to_str(const long long unsigned int nb)
+// my_nbr_to_str for unsigned's
+
+// Allocates a new string and places digits that makes an unsigned into the string.
+static inline char *my_unsigned_nbr_to_str(const size_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_to_str((ssize_t)nb, DECIMAL_BASE, SIGNED));
 }
 
-// Allocates a new string and places digits that makes a size_t into the string.
-static inline char *my_size_t_to_str(const size_t nb)
+// Allocates a new string and places digits that makes an unsigned into the string, in binary base.
+static inline char *my_unsigned_nbr_to_str_binary(const size_t nb)
 {
-    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+    return (__my_nbr_to_str((ssize_t)nb, BINARY_BASE, SIGNED));
+}
+
+// Allocates a new string and places digits that makes an unsigned into the string, in octal base.
+static inline char *my_unsigned_nbr_to_str_octal(const size_t nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, OCTAL_BASE, SIGNED));
+}
+
+// Allocates a new string and places digits that makes an unsigned into the string, in lowercase hexadecimal base.
+static inline char *my_unsigned_nbr_to_str_lower_hex(const size_t nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, HEXADECIMAL_LOWERCASE_BASE, SIGNED));
+}
+
+// Allocates a new string and places digits that makes an unsigned into the string, in uppercase hexadecimal base.
+static inline char *my_unsigned_nbr_to_str_upper_hex(const size_t nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, HEXADECIMAL_UPPERCASE_BASE, SIGNED));
+}
+
+// Allocates a new string and places digits that makes an unsigned into the string, in a given base.
+static inline char *my_unsigned_nbr_to_str_base(const size_t nb, const char base[])
+{
+    return (__my_nbr_to_str((ssize_t)nb, base, SIGNED));
 }
 
 //////////////////////////
