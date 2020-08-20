@@ -9,11 +9,8 @@
 
 int main(const int ac, const char **av)
 {
-    char *result = my_nbr_to_str(123);
+    int nb = my_get_nbr("123");
 
-    if (result) {
-        printf("res = %s\n", result);
-        free(result);
-    }
+    printf("%d\n", nb);
     return (0);
 }

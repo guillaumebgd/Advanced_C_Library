@@ -16,6 +16,7 @@ UNIT_TESTS_BINARY	=	$(addprefix $(ROOT_DIR_PATH), unit_tests)	\
 MAIN	=	$(addprefix $(ROOT_DIR_PATH), main.c)
 
 SRC	=	__my_get_file_part.c	\
+	__my_get_nbr.c	\
 	__my_match.c	\
 	__my_nbr_size.c	\
 	__my_nbr_to_str.c	\
@@ -37,10 +38,11 @@ SRC	=	__my_get_file_part.c	\
 
 SRC_TESTS	=	$(addprefix $(SRC_TESTS_LOCATION), test_get_next_line.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_name.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_path.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_nbr.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_random_nbr.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alpha.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alphanum.c)	\
-	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_path.c)	\
-	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_random_nbr.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_file_extension.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_num.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_mass_eq.c)	\
