@@ -20,31 +20,8 @@
 #include <stdlib.h>
 ////////////////////
 
-/////////////////////////////
-#include "my_special_chars.h"
-/////////////////////////////
-
 ///////////////////////
-
-#define NONE (0)
-
-///////////////////////
-
-// Bases //
-
-#define BINARY_BASE ("01")
-#define OCTAL_BASE ("01234567")
-#define DECIMAL_BASE ("0123456789")
-#define HEXADECIMAL_LOWERCASE_BASE ("0123456789abcdef")
-#define HEXADECIMAL_UPPERCASE_BASE ("0123456789ABCDEF")
-
-///////////////////////
-
-// Contraptions //
-
-// Gets the absolute value of a variable.
-#define ABS(x) ((x < 0) ? (-x) : (x))
-
+#include "my_defines.h"
 ///////////////////////
 
 ///////////////////////////////////////////////////////////////
@@ -70,16 +47,6 @@ static inline bool my_is_alphanum(const char c)
 /////////////////////
 // String matching //
 /////////////////////
-
-///////////////////////
-
-// Wildcards Flags //
-
-#define WC_STR (1)
-#define WC_CHAR (1 << 1)
-#define WC_STR_CHAR (WC_STR | WC_CHAR)
-
-/////////////////////////////
 
 bool __my_match(const char *s1, const char *s2, const size_t _m);
 
@@ -130,15 +97,6 @@ bool my_mass_str_eq_str(size_t nb_args, const char *mask, ...);
 // Objects sizes //
 ///////////////////
 
-///////////////////////
-
-// Until what a counter index should stop counting. //
-
-#define UNTIL_INDEX (1)
-#define UNTIL_CHAR (1 << 1)
-
-///////////////////////
-
 ssize_t __my_strlen(const char *str, const ssize_t c, const size_t _m);
 
 // Gets the size of a given NULL-terminated string.
@@ -162,13 +120,6 @@ static inline ssize_t my_strlen_char(const char *str, const char c)
 {
     return (__my_strlen(str, (ssize_t)c, UNTIL_CHAR));
 }
-
-///////////////////////
-
-#define UNSIGNED (1 << 2)
-#define SIGNED (1 << 3)
-
-///////////////////////
 
 size_t __my_nbr_size(ssize_t __s_nb, const char __base[], const size_t _m);
 
@@ -254,13 +205,6 @@ static inline size_t my_unsigned_nbr_size_base(const size_t nb, const char base[
 // Search in objects //
 ///////////////////////
 
-///////////////////////
-
-#define DONT_GET_CHAR_INDEX (1)
-#define GET_CHAR_INDEX (1 << 1)
-
-///////////////////////
-
 ssize_t __my_str_contains(const char *str, const char list[], const size_t _m);
 
 // Checks whether a 'c' character is inside of a NULL-terminated string or not.
@@ -324,13 +268,6 @@ static inline bool my_dputchar(const char c, const int fd)
 }
 
 // Put Signed numbers //
-
-///////////////////////
-
-#define NO_COUNT_PRINTED_CHAR (1)
-#define COUNT_PRINTED_CHAR (1 << 1)
-
-///////////////////////
 
 ssize_t __my_put_nbr(const ssize_t nb, const char base[], const size_t _m, const int fd);
 
@@ -531,14 +468,6 @@ static inline char *my_strdup_char(const char *template, const char c)
     return (__my_strdup(template, (ssize_t)c, UNTIL_CHAR));
 }
 
-///////////////////////
-
-#define FREE_FIRST (1)
-#define FREE_SECOND (2)
-#define FREE_BOTH (FREE_FIRST | FREE_SECOND)
-
-///////////////////////
-
 // Allocates a new string that is the result of a concatenate of
 // the 'first' and the 'second' strings.
 //
@@ -630,12 +559,6 @@ static inline char *my_unsigned_nbr_to_str_base(const size_t nb, const char base
     return (__my_nbr_to_str((ssize_t)nb, base, SIGNED));
 }
 
-///////////////////////
-
-#define ONE_NEG_SIGN (1 << 4)
-
-///////////////////////
-
 size_t __my_get_nbr(const char *__str, const char base[], const size_t _m);
 
 // Gets a signed from a string.
@@ -673,13 +596,6 @@ char *get_next_line(const int fd);
 
 // Checks whether a file has a given extension.
 bool my_is_file_extension(const char *file, const char *extension);
-
-///////////////////////
-
-#define GET_FILE_NAME (1)
-#define GET_FILE_PATH (1 << 1)
-
-///////////////////////
 
 char *__my_get_file_part(const char *file_with_path, const size_t _m);
 
