@@ -524,6 +524,56 @@ static inline char *my_strdup_char(const char *template, const char c)
 // And if you don't want to free anything, use NONE.
 char *my_strcat(char *first, char *second, const size_t free_opt);
 
+char *__my_nbr_to_str(ssize_t __s_nb, const size_t _m);
+
+// Allocates a new string and places digits that makes an int into the string.
+static inline char *my_int_to_str(const int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+}
+
+// Allocates a new string and places digits that makes a long int into the string.
+static inline char *my_long_int_to_str(const long int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+}
+
+// Allocates a new string and places digits that makes a long long int into the string.
+static inline char *my_long_long_int_to_str(const long long int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+}
+
+// Allocates a new string and places digits that makes a ssize_t into the string.
+static inline char *my_ssize_t_to_str(const ssize_t nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, SIGNED));
+}
+
+// Allocates a new string and places digits that makes an unsigned int into the string.
+static inline char *my_uint_to_str(const int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+}
+
+// Allocates a new string and places digits that makes a long unsigned int into the string.
+static inline char *my_long_uint_to_str(const long unsigned int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+}
+
+// Allocates a new string and places digits that makes a long long unsigned int into the string.
+static inline char *my_long_long_uint_to_str(const long long unsigned int nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+}
+
+// Allocates a new string and places digits that makes a size_t into the string.
+static inline char *my_size_t_to_str(const size_t nb)
+{
+    return (__my_nbr_to_str((ssize_t)nb, UNSIGNED));
+}
+
 //////////////////////////
 
 /////////////////////
