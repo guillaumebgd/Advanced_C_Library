@@ -630,6 +630,20 @@ static inline char *my_unsigned_nbr_to_str_base(const size_t nb, const char base
     return (__my_nbr_to_str((ssize_t)nb, base, SIGNED));
 }
 
+size_t __my_get_nbr(const char *__str, const size_t _m);
+
+// Gets a signed from a string.
+static inline ssize_t my_get_nbr(const char *str)
+{
+    return ((ssize_t)__my_get_nbr(str, SIGNED));
+}
+
+// Gets an unsigned from a string.
+static inline size_t my_get_unsigned_nbr(const char *str)
+{
+    return (__my_get_nbr(str, UNSIGNED));
+}
+
 //////////////////////////
 
 /////////////////////
