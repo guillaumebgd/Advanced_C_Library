@@ -25,6 +25,7 @@ SRC	=	__my_get_file_part.c	\
 	__my_strdup.c	\
 	__my_strlen.c	\
 	get_next_line.c	\
+	my_get_random_nbr.c	\
 	my_is_alpha.c	\
 	my_is_file_extension.c	\
 	my_is_num.c	\
@@ -38,6 +39,7 @@ SRC_TESTS	=	$(addprefix $(SRC_TESTS_LOCATION), test_get_next_line.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alpha.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_alphanum.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_file_path.c)	\
+	$(addprefix $(SRC_TESTS_LOCATION), test_my_get_random_nbr.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_file_extension.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_is_num.c)	\
 	$(addprefix $(SRC_TESTS_LOCATION), test_my_mass_eq.c)	\
