@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2019
-** PSU_42sh_2019
+** Personnal C Library
+** GuillaumeBgd - Advanced_C_Library
 ** File description:
-** Gets info from a given file whether with its indicated path or not.
+** Gets parts from a file destination string.
 */
 
 #include "my.h"
