@@ -5,18 +5,18 @@
 ## Makefile use for Advanced_C_Library compilation
 ##
 
-SRC_LIBMYCLOCK	=	lib/my/
+SRC_LIBMY	=	lib/my/
 
 all:
-	$(MAKE) -C $(SRC_LIBMYCLOCK)
+	$(MAKE) -C $(SRC_LIBMY)
 
 debug:
-	$(MAKE) debug -C $(SRC_LIBMYCLOCK)
+	$(MAKE) debug -C $(SRC_LIBMY)
 
 tests_run:
 	@find -name "*.gcda" -delete
 	@find -name "*.gcno" -delete
-	-$(MAKE) tests_run -C $(SRC_LIBMYCLOCK)
+	-$(MAKE) tests_run -C $(SRC_LIBMY)
 	find -name "test_*.gcda" -delete
 	find -name "test_*.gcno" -delete
 
@@ -31,10 +31,10 @@ clean:
 	$(RM) -rf $(TEST_COVERAGE_DIR)
 	@find -name "*.gcda" -delete
 	@find -name "*.gcno" -delete
-	$(MAKE) clean -C $(SRC_LIBMYCLOCK)
+	$(MAKE) clean -C $(SRC_LIBMY)
 
 fclean: clean
-	$(MAKE) fclean -C $(SRC_LIBMYCLOCK)
+	$(MAKE) fclean -C $(SRC_LIBMY)
 
 re:	fclean all
 
