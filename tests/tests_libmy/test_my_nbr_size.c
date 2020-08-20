@@ -84,7 +84,7 @@ Test(my_long_uint_size, luint_tests)
     cr_expect_eq(my_long_uint_size(max_luint), 19);
 }
 
-Test(my_long_long_uint_size, llint_tests)
+Test(my_long_long_uint_size, lluint_tests)
 {
     const long long unsigned int max_lluint = ~(1ULL << (sizeof(long long unsigned int) * 8 - 1));
 
