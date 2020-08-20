@@ -9,11 +9,5 @@
 
 int main(const int ac, const char **av)
 {
-    char *result = my_int_to_str(-100);
-
-    if (result) {
-        printf("res = %s\n", result);
-        free(result);
-    }
     return (0);
 }
