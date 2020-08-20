@@ -9,8 +9,10 @@
 
 int main(const int ac, const char **av)
 {
-    int nb = my_get_nbr("123");
+    const char nb[] = "10";
+    char *result = my_convert_base(nb, DECIMAL_BASE, BINARY_BASE);
 
-    printf("%d\n", nb);
+    if (result)
+        free(result);
     return (0);
 }

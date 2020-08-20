@@ -11,7 +11,7 @@ static void __my_nbr_to_str_fill(char **__s, const size_t _nb, const char __base
 {
     const ssize_t __len = my_strlen(__base);
 
-    if (((_m & SIGNED) && _nb >= 10) || ((_m & UNSIGNED) && (size_t)_nb >= 10)) {
+    if (((_m & SIGNED) && _nb >= __len) || ((_m & UNSIGNED) && (size_t)_nb >= __len)) {
         __my_nbr_to_str_fill(__s, (_m & SIGNED) ? _nb / __len : ((size_t)_nb) / (size_t)__len, __base, _m);
         __my_nbr_to_str_fill(__s, (_m & SIGNED) ? _nb % __len : ((size_t)_nb) % (size_t)__len, __base, _m);
     } else {
