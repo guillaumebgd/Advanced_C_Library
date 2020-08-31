@@ -615,7 +615,7 @@ static inline char *my_get_file_path(const char *pathed_file)
 
 ///////////////////
 // Miscellaneous //
-////////////.//////
+///////////////////
 
 // Gets a random number from a given range.
 ssize_t my_get_random_nbr(const ssize_t min, const ssize_t max);
